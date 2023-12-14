@@ -1,13 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MpesaView from "./view/MpesaView";
+import HomeView from "./view/HomeView";
 
 function App() {
   return (
     <div className="App">
 
-    <MpesaView />
+    <HomeView />
     </div>
   );
 }
