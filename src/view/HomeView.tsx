@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './homeView.css';
 import { tinyApi } from "../handleApi/mpesa";
+import {ClipLoader} from "react-spinners";
 
 const HomeView = () => {
     const startAmount = 200;
@@ -11,6 +12,7 @@ const HomeView = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [amount, setAmount] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false); // Add state for modal
+    const [loading, setLoading] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -22,6 +24,7 @@ const HomeView = () => {
     };
 
     const handleSubscribe = () => {
+        setLoading(true);
         if (phoneNumber) {
             tinyApi(phoneNumber, amount).then(() => {
                 alert("Payment successful!");
@@ -29,15 +32,13 @@ const HomeView = () => {
         } else {
             alert('Phone number is required');
         }
+        setLoading(false);
     };
 
     const openModal = () => {
         setIsModalOpen(true);
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
 
     return (
         <div>
@@ -119,7 +120,14 @@ const HomeView = () => {
                             <h3>Selected Package: {selectedTier}</h3>
                             <h4>Amount: {amount}</h4>
                             <input type="text" placeholder="Enter phone number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                            <button onClick={openModal}>Subscribe Now</button>
+                            <button type="submit" className="login-button" disabled={loading}
+                                    onClick={handleSubscribe}>
+                                {loading ? (
+                                    <ClipLoader color="#ffffff" loading={loading} size={30}/>
+                                ) : (
+                                    'Pay Now'
+                                )}
+                            </button>
                         </div>
                     )}
                 </section>
