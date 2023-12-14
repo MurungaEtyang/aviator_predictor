@@ -65,22 +65,24 @@ const HomeView = () => {
             </nav>
 
             <div id="about">
-                <h1>Welcome to AviatorBot AI!</h1>
-                <p>
-                    New to AviatorBot AI? Make a daily payment of KES 100 and start experiencing the winning streak.
-                    Your payment resets at midnight.
-                </p>
+                <h1 className={`title`}>Welcome to AviatorBot AI!</h1>
+                <p className="paragraph">New to AviatorBot AI?
+                    AviatorBot AI is an advanced artificial intelligence system developed to enhance the player's
+                    experience and performance in the popular "Aviator" game. This AI leverages state-of-the-art
+                    machine learning and predictive modeling techniques to provide real-time assistance and guidance
+                    to players, making the game more enjoyable and challenging. With AviatorBot AI, you can make a
+                    daily payment and start experiencing the winning streak. Your payment resets at midnight,
+                    giving you the opportunity to continuously improve your skills and achieve better results.
+                    Join the AviatorBot AI community today and take your gaming experience to new heights!</p>
                 <video width="320" height="240" controls>
-                    <source src="../video/avpr.mp4" type="video/mp4" />
+                    <source src="./video/avpr.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
 
             </div>
 
             <div>
-                <a href="#subscription" onClick={() => handleSelectTier('Starter', startAmount.toString())}>
-                    <button>Get Started</button>
-                </a>
+
                 <h1>Subscription Plans</h1>
                 <section className={`subscription-plans-section`}>
                     <div className={`subscription-plans`}>

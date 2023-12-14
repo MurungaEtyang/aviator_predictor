@@ -9,7 +9,7 @@ nav {
     background-color: #333;
     color: #fff;
     padding: 10px;
-    text-align: center;
+    text-align: right;
     width: 100%;
 }
 
@@ -43,110 +43,184 @@ nav {
     margin: 0 auto;
     padding: 20px;
 }
-
-.subscription-plans-section{
-    background-color: rgba(86, 175, 90, 0.29);
+#about {
+    background-color: #f2f2f2;
+    padding: 20px;
 }
+#about .title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#about .paragraph {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+#about video {
+    width: 90%;
+    height: auto;
+    margin-bottom: 20px;
+}
+.subscription-plans-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .subscription-plans {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
-    backdrop-filter: blur();
-
+    justify-content: center;
+    gap: 20px;
 }
 
-.subscription{
-    background-color: rgba(0, 0, 255, 0.53);
-    border: 1px solid yellow;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-.subscription-payment{
-    background-color: rgba(0, 0, 255, 0.06);
-}
-
-input[type="text"], h3, h4 {
-    height: 40px;
-    padding: 4px;
-    font-size: 16px;
-    border-top: green;
-    margin: 10px ;
-    border-radius: 10px;
-}
-
-button {
-    height: 50px;
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 6px;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-}
-button:hover{
-    background-color: green;
-}
-.plan {
-    border: 1px solid #ccc;
+.subscription {
+    width: 300px;
     padding: 20px;
-    margin: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
     text-align: center;
 }
 
-.plan h2 {
-    color: white;
+.subscription h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
-.plan p {
-    color: white;
+.subscription p {
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
-.plan button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
+.subscription button {
+    background-color: #007bff;
+    color: #fff;
     border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.plan button:hover {
-    background-color: #45a049;
+.subscription button:hover {
+    background-color: #0056b3;
 }
 
-video {
-    max-width: 100%;
-    height: auto;
+.subscription-payment {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+.subscription-payment h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.subscription-payment h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.subscription-payment input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.subscription-payment button {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.subscription-payment button:hover {
+    background-color: darkblue;
+}
+
+#about-aviator {
+     margin-top: 20px;
+     padding: 20px;
+     background-color: #f2f2f2;
+     border-radius: 5px;
+ }
+
+#about-aviator h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#about-aviator p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#contact {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+#contact h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#contact p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#contact a {
+    color: blue;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: rgb(12, 12, 12);
+    padding: 20px;
     text-align: center;
-    padding: 10px;
-    /*position: fixed;*/
-    bottom: 0;
-    width: 100%;
+    color: white;
+}
+
+footer p {
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
 footer ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
-footer li {
-    display: inline;
-    margin: 0 10px;
+footer ul li {
+    display: inline-block;
+    margin-right: 10px;
 }
 
-footer a {
+footer ul li a {
+    color: blue;
     text-decoration: none;
-    color: #fff;
 }
 
-h1, h2, h3, p {
-    margin-bottom: 10px;
+footer ul li a:hover {
+    text-decoration: underline;
 }
 
 
