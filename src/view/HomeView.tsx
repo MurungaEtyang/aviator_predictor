@@ -71,7 +71,7 @@ const HomeView = () => {
                     Your payment resets at midnight.
                 </p>
                 <video width="320" height="240" controls>
-                    <source src="./video/avpr.mp4" type="video/mp4" />
+                    <source src="../video/avpr.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
 
@@ -87,8 +87,8 @@ const HomeView = () => {
                         <div className={`subscription`}>
                             <h2>Starter</h2>
                             <p>Basic features</p>
-                            <p>80% sure odds</p>
-                            <p>Life time</p>
+                            <p>100% sure odds</p>
+                            <p>Daily payment</p>
                             <p>Daily Updates</p>
                             <p>KSH {startAmount}</p>
                             <button onClick={() => handleSelectTier('Starter', startAmount.toString())}>Select</button>
@@ -97,7 +97,7 @@ const HomeView = () => {
                             <h2>Diamond</h2>
                             <p>Advanced features</p>
                             <p>100% sure odds</p>
-                            <p>Life time</p>
+                            <p>Weekly payment</p>
                             <p>Daily Updates</p>
                             <p>KSH {goldAmount}</p>
                             <button onClick={() => handleSelectTier('Diamond', goldAmount.toString())}>Select</button>
@@ -106,7 +106,7 @@ const HomeView = () => {
                             <h2>Gold</h2>
                             <p>Premium features</p>
                             <p>100% sure odds</p>
-                            <p>Life time</p>
+                            <p>Monthly payment</p>
                             <p>Daily Updates</p>
                             <p>KSH {premiumAmount}</p>
                             <button onClick={() => handleSelectTier('Gold', premiumAmount.toString())}>Select</button>
