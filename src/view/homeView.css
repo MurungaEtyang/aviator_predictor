@@ -2,14 +2,15 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: rgba(86, 175, 90, 0.29);
 }
 
-/* Navigation */
 nav {
     background-color: #333;
     color: #fff;
     padding: 10px;
     text-align: center;
+    width: 100%;
 }
 
 .menu-icon {
@@ -37,36 +38,55 @@ nav {
     background-color: #555;
 }
 
-/* Hamburger Menu Styling */
-@media screen and (min-width: 768px) {
-    .menu-icon {
-        display: none;
-    }
-
-    .menu-list {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .menu-list a {
-        padding: 10px 20px;
-    }
-}
-
-/* Page Content */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Subscription Plans */
+.subscription-plans-section{
+    background-color: rgba(86, 175, 90, 0.29);
+}
 .subscription-plans {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    backdrop-filter: blur();
+
 }
 
+.subscription{
+    background-color: rgba(0, 0, 255, 0.53);
+    border: 1px solid yellow;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.subscription-payment{
+    background-color: rgba(0, 0, 255, 0.06);
+}
+
+input[type="text"], h3, h4 {
+    height: 40px;
+    padding: 4px;
+    font-size: 16px;
+    border-top: green;
+    margin: 10px ;
+    border-radius: 10px;
+}
+
+button {
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 6px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+}
+button:hover{
+    background-color: green;
+}
 .plan {
     border: 1px solid #ccc;
     padding: 20px;
@@ -75,11 +95,11 @@ nav {
 }
 
 .plan h2 {
-    color: #333;
+    color: white;
 }
 
 .plan p {
-    color: #666;
+    color: white;
 }
 
 .plan button {
@@ -94,19 +114,19 @@ nav {
     background-color: #45a049;
 }
 
-/* Responsive Video */
 video {
     max-width: 100%;
     height: auto;
 }
 
-/* Footer */
+
+
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
     padding: 10px;
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0;
     width: 100%;
 }
@@ -127,7 +147,23 @@ footer a {
     color: #fff;
 }
 
-/* Additional Styling */
 h1, h2, h3, p {
     margin-bottom: 10px;
+}
+
+
+@media screen and (min-width: 600px) {
+    .menu-icon {
+        display: none;
+    }
+
+    .menu-list {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .menu-list a {
+        padding: 10px 20px;
+    }
+
 }

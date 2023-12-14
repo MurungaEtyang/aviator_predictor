@@ -1,21 +1,42 @@
 import React, { useState } from 'react';
 import './homeView.css';
+import { tinyApi } from "../handleApi/mpesa";
 
 const HomeView = () => {
-    const [selectedTier, setSelectedTier] = useState(null);
+    const startAmount = 200;
+    const goldAmount = 500;
+    const premiumAmount = 1000;
+    const [selectedTier, setSelectedTier] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [amount, setAmount] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false); // Add state for modal
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const handleSelectTier = (tier: string) => {
-        // setSelectedTier(tier);
+    const handleSelectTier = (tier: string, amount: string) => {
+        setSelectedTier(tier);
+        setAmount(amount);
     };
 
     const handleSubscribe = () => {
-        console.log(`Subscribing to ${selectedTier} tier...`);
-        // Implement subscription logic (e.g., redirect to payment page)
+        if (phoneNumber) {
+            tinyApi(phoneNumber, amount).then(() => {
+                alert("Payment successful!");
+            });
+        } else {
+            alert('Phone number is required');
+        }
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -53,36 +74,53 @@ const HomeView = () => {
                     <source src="./video/avpr.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-                <a href="#subscription" onClick={() => handleSelectTier('Starter')}>
-                    <button>Get Started</button>
-                </a>
+
             </div>
 
             <div>
+                <a href="#subscription" onClick={() => handleSelectTier('Starter', startAmount.toString())}>
+                    <button>Get Started</button>
+                </a>
                 <h1>Subscription Plans</h1>
-                <div>
-                    <div>
-                        <h2>Starter</h2>
-                        <p>Basic features</p>
-                        <button onClick={() => handleSelectTier('Starter')}>Select</button>
+                <section className={`subscription-plans-section`}>
+                    <div className={`subscription-plans`}>
+                        <div className={`subscription`}>
+                            <h2>Starter</h2>
+                            <p>Basic features</p>
+                            <p>80% sure odds</p>
+                            <p>Life time</p>
+                            <p>Daily Updates</p>
+                            <p>KSH {startAmount}</p>
+                            <button onClick={() => handleSelectTier('Starter', startAmount.toString())}>Select</button>
+                        </div>
+                        <div className={`subscription`}>
+                            <h2>Diamond</h2>
+                            <p>Advanced features</p>
+                            <p>100% sure odds</p>
+                            <p>Life time</p>
+                            <p>Daily Updates</p>
+                            <p>KSH {goldAmount}</p>
+                            <button onClick={() => handleSelectTier('Diamond', goldAmount.toString())}>Select</button>
+                        </div>
+                        <div className={`subscription`}>
+                            <h2>Gold</h2>
+                            <p>Premium features</p>
+                            <p>100% sure odds</p>
+                            <p>Life time</p>
+                            <p>Daily Updates</p>
+                            <p>KSH {premiumAmount}</p>
+                            <button onClick={() => handleSelectTier('Gold', premiumAmount.toString())}>Select</button>
+                        </div>
                     </div>
-                    <div>
-                        <h2>Diamond</h2>
-                        <p>Advanced features</p>
-                        <button onClick={() => handleSelectTier('Diamond')}>Select</button>
-                    </div>
-                    <div>
-                        <h2>Gold</h2>
-                        <p>Premium features</p>
-                        <button onClick={() => handleSelectTier('Gold')}>Select</button>
-                    </div>
-                </div>
-                {selectedTier && (
-                    <div>
-                        <h3>Selected Tier: {selectedTier}</h3>
-                        <button onClick={handleSubscribe}>Subscribe Now</button>
-                    </div>
-                )}
+                    {selectedTier && (
+                        <div className={`subscription-payment`}>
+                            <h3>Selected Package: {selectedTier}</h3>
+                            <h4>Amount: {amount}</h4>
+                            <input type="text" placeholder="Enter phone number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                            <button onClick={openModal}>Subscribe Now</button>
+                        </div>
+                    )}
+                </section>
             </div>
 
             <div id="about-aviator">
@@ -111,6 +149,8 @@ const HomeView = () => {
                     </li>
                 </ul>
             </footer>
+
+
         </div>
     );
 };
