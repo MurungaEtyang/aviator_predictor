@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: rgba(86, 175, 90, 0.29);
+    overflow-x: hidden;
 }
 
 nav {
@@ -60,10 +61,15 @@ nav {
     margin-bottom: 10px;
 }
 
-#about video {
-    width: 90%;
-    height: auto;
-    margin-bottom: 20px;
+.video {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.video-player {
+    width: 100%;
+    max-width: 800px;
 }
 .subscription-plans-section {
     display: flex;

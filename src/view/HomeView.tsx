@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './homeView.css';
 import { tinyApi } from "../handleApi/mpesa";
 import {ClipLoader} from "react-spinners";
+import ReactPlayer from "react-player"
+
+
 
 const HomeView = () => {
     const startAmount = 200;
@@ -11,7 +14,6 @@ const HomeView = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [amount, setAmount] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false); // Add state for modal
     const [loading, setLoading] = useState(false);
 
     const toggleMenu = () => {
@@ -35,9 +37,6 @@ const HomeView = () => {
         setLoading(false);
     };
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
 
 
     return (
@@ -75,10 +74,9 @@ const HomeView = () => {
                     daily payment and start experiencing the winning streak. Your payment resets at midnight,
                     giving you the opportunity to continuously improve your skills and achieve better results.
                     Join the AviatorBot AI community today and take your gaming experience to new heights!</p>
-                <video width="320" height="240" controls>
-                    <source src="./video/avpr.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
+                <div className="video">
+                    <ReactPlayer className="video-player" url="https://youtu.be/8ZEA7z4jYlo" />
+                </div>
 
             </div>
 
