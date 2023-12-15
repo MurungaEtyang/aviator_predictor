@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const AviatorPredictor = () => {
     const [progress, setProgress] = useState(0);
     const [secondsRemaining, setSecondsRemaining] = useState(60);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         const generateRandomFloat = () => (Math.random() * 99) + 1;
@@ -40,8 +41,29 @@ const AviatorPredictor = () => {
         return `hsl(${hue}, 100%, 50%)`;
     };
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <div>
+            <ul className={`menu-list ${isMenuOpen ? 'open' : ''}`}>
+                <li>
+                    <a href="#about" onClick={toggleMenu}>
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="#subscription" onClick={toggleMenu}>
+                        Subscription
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" onClick={toggleMenu}>
+                        Contact
+                    </a>
+                </li>
+            </ul>
             <div>
                 <p>Time remaining: {Math.max(0, Number(secondsRemaining.toFixed(2)))} seconds</p>
             </div>

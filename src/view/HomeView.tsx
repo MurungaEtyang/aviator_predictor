@@ -3,13 +3,13 @@ import './homeView.css';
 import { tinyApi } from "../handleApi/mpesa";
 import {ClipLoader} from "react-spinners";
 import ReactPlayer from "react-player"
-
-
+// import {useHistory} from "react-router-dom";
 
 const HomeView = () => {
-    const startAmount = 200;
+    const startAmount = 1;
     const goldAmount = 500;
     const premiumAmount = 1000;
+    // const history = useHistory();
     const [selectedTier, setSelectedTier] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -25,16 +25,52 @@ const HomeView = () => {
         setAmount(amount);
     };
 
-    const handleSubscribe = () => {
-        setLoading(true);
-        if (phoneNumber) {
-            tinyApi(phoneNumber, amount).then(() => {
-                alert("Payment successful!");
-            });
-        } else {
-            alert('Phone number is required');
+    const handleSubscribe = async () => {
+        try {
+            setLoading(true);
+            if (phoneNumber) {
+                const paymentResult = await tinyApi(phoneNumber, amount);
+                console.log(paymentResult);
+
+                // Check if paymentResult and paymentResult.response are defined
+                if (paymentResult && paymentResult.response) {
+                    const paymentData = paymentResult.response;
+
+                    // Check if the required properties (amount, msisdn, mpesa_receipt) are defined
+                    if (paymentData && paymentData.amount && paymentData.msisdn && paymentData.mpesa_receipt) {
+                        // Save extracted data to Netlify Functions
+                        await fetch('/.netlify/functions/savePaymentResponse', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                amount: paymentData.amount,
+                                msisdn: paymentData.msisdn,
+                                mpesa_receipt: paymentData.mpesa_receipt,
+                            }),
+                        }).then(response => {
+                            if (response.ok) {
+                                alert("Payment successful!");
+                                // history('./aviator-predictor')
+                            }else {
+                                console.log("Payment failed: " + response.status)
+                            }
+
+                            // history('./aviator-predictor')
+                        });
+                    } else {
+                        alert("Incomplete or missing payment data");
+                    }
+                } else {
+                    alert("Invalid payment result or missing response");
+                }
+            } else {
+                alert('Phone number is required');
+            }
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
 
@@ -42,9 +78,9 @@ const HomeView = () => {
     return (
         <div>
             <nav>
-        <span className="menu-icon" onClick={toggleMenu}>
-          &#9776;
-        </span>
+        {/*<span className="menu-icon" onClick={toggleMenu}>*/}
+        {/*  &#9776;*/}
+        {/*</span>*/}
                 <ul className={`menu-list ${isMenuOpen ? 'open' : ''}`}>
                     <li>
                         <a href="#about" onClick={toggleMenu}>
