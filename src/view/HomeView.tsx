@@ -6,7 +6,7 @@ import ReactPlayer from "react-player"
 // import {useHistory} from "react-router-dom";
 
 const HomeView = () => {
-    const startAmount = 1;
+    const startAmount = 200;
     const goldAmount = 500;
     const premiumAmount = 1000;
     // const history = useHistory();
@@ -32,13 +32,13 @@ const HomeView = () => {
                 const paymentResult = await tinyApi(phoneNumber, amount);
                 console.log(paymentResult);
 
-                // Check if paymentResult and paymentResult.response are defined
+
                 if (paymentResult && paymentResult.response) {
                     const paymentData = paymentResult.response;
 
-                    // Check if the required properties (amount, msisdn, mpesa_receipt) are defined
+
                     if (paymentData && paymentData.amount && paymentData.msisdn && paymentData.mpesa_receipt) {
-                        // Save extracted data to Netlify Functions
+
                         await fetch('/.netlify/functions/savePaymentResponse', {
                             method: 'POST',
                             headers: {
@@ -111,7 +111,7 @@ const HomeView = () => {
                     giving you the opportunity to continuously improve your skills and achieve better results.
                     Join the AviatorBot AI community today and take your gaming experience to new heights!</p>
                 <div className="video">
-                    <ReactPlayer className="video-player" url="https://youtu.be/8ZEA7z4jYlo" />
+                    <ReactPlayer className="video-player" url="https://vimeo.com/894950077" />
                 </div>
 
             </div>
