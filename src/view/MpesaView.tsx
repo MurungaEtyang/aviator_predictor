@@ -2,6 +2,9 @@
 import {tinyApi} from "../handleApi/mpesa";
 import {useState} from "react";
 import {ClipLoader} from "react-spinners";
+import {PaymentRequestServiceImpl} from "../app/mpesa/service/PaymentRequestServiceImpl";
+import {PaymentRequestService} from "../app/mpesa/service/PaymentRequestService";
+
 
 const MpesaView = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -18,6 +21,21 @@ const MpesaView = () => {
 
         setLoading(false);
     }
+
+    const handleRequest = () => {
+
+        const paymentService: PaymentRequestService= new PaymentRequestServiceImpl();
+        paymentService.requestPayment(Number(amount), phoneNumber, 200, "cdcbi5kqWqq").then(
+            (response: boolean) => {
+                if (response) {
+                    alert("success!");
+                }else alert("failed");
+            }
+        )
+
+        alert("kwisha");
+    }
+
     return (
         <div>
             <form>
@@ -32,7 +50,7 @@ const MpesaView = () => {
                        onChange={event => {setAmount(event.target.value)}}
                 />
                 <button type="submit" className="login-button" disabled={loading}
-                        onClick={handlePayment}>
+                        onClick={handleRequest}>
                     {loading ? (
                         <ClipLoader color="#ffffff" loading={loading} size={30}/>
                     ) : (
