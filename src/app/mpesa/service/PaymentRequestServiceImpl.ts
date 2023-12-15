@@ -1,6 +1,7 @@
 import {PaymentRequestService} from "./PaymentRequestService";
 import {StkPushRequest} from "../proxy/StkPushRequest";
 import {TransactionStatusRequest} from "../proxy/TransactionStatusRequest";
+import {StkPushResponse} from "../model/StkPushResponse";
 
 /**
  * the payment request service.
@@ -18,19 +19,30 @@ export class PaymentRequestServiceImpl implements PaymentRequestService{
      *
      * @returns {Promise<boolean>} - A Promise that resolves to true if the payment is successful, otherwise false.
      */
-    async requestPayment(amount: number, msisdn: string, account_no: number, api_key: string): Promise<boolean> {
+     async requestPayment(amount: number, msisdn: string, account_no: number, api_key: string): Promise<boolean> {
 
+
+        alert("enter");
         /*send stk push*/
-        const stkPushReq = new StkPushRequest(amount, msisdn, account_no, api_key);
+        const stkPushRequest = new StkPushRequest(amount, msisdn, account_no, api_key);
+        const transactionStatusRequest = new TransactionStatusRequest(account_no, api_key);
 
         // setting pushStk with timeout of 5 minutes
-        setTimeout(async () => {
-                await stkPushReq.pushStk()
+        alert("here we go!")
+        const stkPushResponse: StkPushResponse = await stkPushRequest.pushStk().then((response: Response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("oops!");
             }
-        , 300000);
+        }).then((response: StkPushResponse) => response);
 
-       /*confirm the payment*/
-        const txnStatusReq = new TransactionStatusRequest(account_no, api_key);
-        return await txnStatusReq.isComplete();
+        if (stkPushResponse.success) {
+
+            alert("success exit!")
+            return await transactionStatusRequest.isComplete();
+        }
+        alert("failed exit!")
+        return false;
     }
 }

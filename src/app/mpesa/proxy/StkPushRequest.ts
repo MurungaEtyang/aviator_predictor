@@ -35,40 +35,33 @@ export class StkPushRequest {
      * @async
      * @returns {boolean} - Returns true if the transaction was successfully initialized, false otherwise.
      */
-    async pushStk() {
+    async pushStk(): Promise<Response> {
 
-        /*the url*/
-        const url = "https://tinypesa.com/api/v1/express/initialize";
+        // return new Promise((resolve, reject) => {
 
-        /*compose the body*/
-        const data = {
-            amount: this.amount,
-            msisdn: this.msisdn,
-            account_no: this.account_no,
-        };
+            /*the url*/
+            const url = "https://tinypesa.com/api/v1/express/initialize";
 
-        /*compose the header*/
-        const headers = new Headers();
-        headers.append("Apikey", `${this.api_key}`);
-        headers.append("Content-Type", "application/json");
+            /*compose the body*/
+            const data = {
+                amount: this.amount,
+                msisdn: this.msisdn,
+                account_no: this.account_no,
+            };
 
-        try {
-            const response: Response = await fetch(url, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(data),
-            });
+            /*compose the header*/
+            const headers = new Headers();
+            headers.append("Apikey", `${this.api_key}`);
+            headers.append("Content-Type", "application/json");
 
-            if (response.ok ) {
+        return fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(data),
+        });
 
-                /*map the response to a boolean*/
-                const stkPushResponse:StkPushResponse = await response.json();
-                return stkPushResponse.success;
+            // setTimeout(() => reject(new Error("request timed out!")), timeOut);
+        // })
 
-            }
-        } catch (error: any) {
-            console.log('There was a problem with the fetch operation: ' + error.message);
-            return false;
-        }
     }
 }
