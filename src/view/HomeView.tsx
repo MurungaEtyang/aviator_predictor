@@ -3,13 +3,11 @@ import './assets/css/homeView.css';
 import { tinyApi } from "../handleApi/mpesa";
 import {ClipLoader} from "react-spinners";
 import ReactPlayer from "react-player"
-// import {useHistory} from "react-router-dom";
 
 const HomeView = () => {
     const startAmount = 200;
     const goldAmount = 500;
     const premiumAmount = 1000;
-    // const history = useHistory();
     const [selectedTier, setSelectedTier] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -32,34 +30,15 @@ const HomeView = () => {
             if (phoneNumber) {
                 const paymentResult = await tinyApi(phoneNumber, amount);
                 console.log(paymentResult);
-
-
+                localStorage.setItem('paymentResult', paymentResult.response);
                 if (paymentResult && paymentResult.response) {
                     const paymentData = paymentResult.response;
 
-
+                    const response = localStorage.getItem('paymentResult');
                     if (paymentData && paymentData.amount && paymentData.msisdn && paymentData.mpesa_receipt) {
 
-                        await fetch('/.netlify/functions/savePaymentResponse', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                amount: paymentData.amount,
-                                msisdn: paymentData.msisdn,
-                                mpesa_receipt: paymentData.mpesa_receipt,
-                            }),
-                        }).then(response => {
-                            if (response.ok) {
-                                alert("Payment successful!");
-                                setPaymentSuccesful(true)
-                            }else {
-                                console.log("Payment failed: " + response.status)
-                            }
 
-                            // history('./aviator-predictor')
-                        });
+
                     } else {
                         alert("Incomplete or missing payment data");
                     }
@@ -117,57 +96,58 @@ const HomeView = () => {
 
             </div>
 
-            {paymentSuccesful &&
-                <div>
+            {paymentSuccesful && (
+                    <div>
 
-                    <h1>Subscription Plans</h1>
-                    <section className={`subscription-plans-section`}>
-                        <div className={`subscription-plans`}>
-                            <div className={`subscription`}>
-                                <h2>Starter</h2>
-                                <p>Basic features</p>
-                                <p>100% sure odds</p>
-                                <p>Daily payment</p>
-                                <p>Daily Updates</p>
-                                <p>KSH {startAmount}</p>
-                                <button onClick={() => handleSelectTier('Starter', startAmount.toString())}>Select</button>
+                        <h1>Subscription Plans</h1>
+                        <section className={`subscription-plans-section`}>
+                            <div className={`subscription-plans`}>
+                                <div className={`subscription`}>
+                                    <h2>Starter</h2>
+                                    <p>Basic features</p>
+                                    <p>100% sure odds</p>
+                                    <p>Daily payment</p>
+                                    <p>Daily Updates</p>
+                                    <p>KSH {startAmount}</p>
+                                    <button onClick={() => handleSelectTier('Starter', startAmount.toString())}>Select</button>
+                                </div>
+                                <div className={`subscription`}>
+                                    <h2>Diamond</h2>
+                                    <p>Advanced features</p>
+                                    <p>100% sure odds</p>
+                                    <p>Weekly payment</p>
+                                    <p>Daily Updates</p>
+                                    <p>KSH {goldAmount}</p>
+                                    <button onClick={() => handleSelectTier('Diamond', goldAmount.toString())}>Select</button>
+                                </div>
+                                <div className={`subscription`}>
+                                    <h2>Gold</h2>
+                                    <p>Premium features</p>
+                                    <p>100% sure odds</p>
+                                    <p>Monthly payment</p>
+                                    <p>Daily Updates</p>
+                                    <p>KSH {premiumAmount}</p>
+                                    <button onClick={() => handleSelectTier('Gold', premiumAmount.toString())}>Select</button>
+                                </div>
                             </div>
-                            <div className={`subscription`}>
-                                <h2>Diamond</h2>
-                                <p>Advanced features</p>
-                                <p>100% sure odds</p>
-                                <p>Weekly payment</p>
-                                <p>Daily Updates</p>
-                                <p>KSH {goldAmount}</p>
-                                <button onClick={() => handleSelectTier('Diamond', goldAmount.toString())}>Select</button>
-                            </div>
-                            <div className={`subscription`}>
-                                <h2>Gold</h2>
-                                <p>Premium features</p>
-                                <p>100% sure odds</p>
-                                <p>Monthly payment</p>
-                                <p>Daily Updates</p>
-                                <p>KSH {premiumAmount}</p>
-                                <button onClick={() => handleSelectTier('Gold', premiumAmount.toString())}>Select</button>
-                            </div>
-                        </div>
-                        {selectedTier && (
-                            <div className={`subscription-payment`}>
-                                <h3>Selected Package: {selectedTier}</h3>
-                                <h4>Amount: {amount}</h4>
-                                <input type="text" placeholder="Enter phone number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                                <button type="submit" className="login-button" disabled={loading}
-                                        onClick={handleSubscribe}>
-                                    {loading ? (
-                                        <ClipLoader color="#ffffff" loading={loading} size={30}/>
-                                    ) : (
-                                        'Pay Now'
-                                    )}
-                                </button>
-                            </div>
-                        )}
-                    </section>
-                </div>
+                            {selectedTier && (
+                                <div className={`subscription-payment`}>
+                                    <h3>Selected Package: {selectedTier}</h3>
+                                    <h4>Amount: {amount}</h4>
+                                    <input type="text" placeholder="Enter phone number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                    <button type="submit" className="login-button" disabled={loading}
+                                            onClick={handleSubscribe}>
+                                        {loading ? (
+                                            <ClipLoader color="#ffffff" loading={loading} size={30}/>
+                                        ) : (
+                                            'Pay Now'
+                                        )}
+                                    </button>
+                                </div>
+                            )}
+                        </section>
+                    </div>
+                )
             }
 
             {paymentSuccesful &&
