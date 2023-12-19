@@ -2,7 +2,7 @@ import { Handler } from '@netlify/functions';
 import sqlite3 from 'sqlite3';
 
 const handler: Handler = async function(event: any, context) {
-    // Connect to a file-based SQLite database (replace 'database.db' with your desired file name)
+
     const db = new sqlite3.Database('database.db');
 
     try {
@@ -48,7 +48,6 @@ const handler: Handler = async function(event: any, context) {
             body: JSON.stringify({ error: 'Internal Server Error' }),
         };
     } finally {
-        // Close the database connection
         db.close();
     }
 };

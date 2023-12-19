@@ -3,11 +3,23 @@ export const tinyApi = async (phoneNumber: string, amount: string): Promise<any>
     const urlInitialize = "https://tinypesa.com/api/v1/express/initialize";
     const urlGetStatus = "https://tinypesa.com/api/v1/express/get_status/";
 
-    const accno = Math.floor(Math.random() * 1000) + 1; // Generate a random number between 1 and 1000
+    const accno = Math.floor(Math.random() * 1000) + 1;
     const apiKey = "cdcbi5kqWqq";
 
+
+    const saveSaveResponse = (fileName:any, data:any) => {
+        const jsonResponse = JSON.stringify(data);
+        const blob = new Blob([jsonResponse], {type: 'application/json'});
+
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+
+        link.download= fileName;
+
+        URL.revokeObjectURL(link.href);
+    }
+
     try {
-        // Step 1: Initialize transaction
         const initializeResponse = await fetch(urlInitialize, {
             method: "POST",
             headers: {
@@ -43,16 +55,25 @@ export const tinyApi = async (phoneNumber: string, amount: string): Promise<any>
 
         const statusResponseBody = await getStatusResponse.json();
 
-        return {
+        const transactionData = {
             success: statusResponseBody.is_complete === 1,
-            response: statusResponseBody,
-        };
+            response: statusResponseBody
+        }
+
+        saveSaveResponse('response.json', transactionData);
+
+        return transactionData;
+
     } catch (error: any) {
         console.error("Error:", error.message);
-        return {
+        const errorData =  {
             success: false,
-            error: error.message, // Include the error message if needed
+            error: error.message,
         };
+
+        saveSaveResponse('responseError.json', errorData);
+
+        return errorData;
     }
 };
 

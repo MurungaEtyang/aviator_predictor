@@ -87,7 +87,7 @@ nav {
 }
 
 .subscription {
-    width: 500px;
+    width: 300px;
     padding: 20px;
     background-color: rgba(76, 96, 175, 0.62);
     border-radius: 5px;
@@ -232,7 +232,10 @@ footer ul li a:hover {
 }
 
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 400px) {
+    body {
+        overflow-x: hidden;
+    }
     .menu-icon {
         display: none;
     }

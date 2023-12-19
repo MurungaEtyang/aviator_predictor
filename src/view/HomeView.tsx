@@ -6,7 +6,7 @@ import ReactPlayer from "react-player"
 import AviatorPredictor from "./AviatorPredictor";
 
 const HomeView = () => {
-    const startAmount = 100;
+    const startAmount = 1000;
     const goldAmount = 500;
     const premiumAmount = 1000;
     const [selectedTier, setSelectedTier] = useState('');
@@ -32,32 +32,12 @@ const HomeView = () => {
                 const paymentResult = await tinyApi(phoneNumber, amount);
                 console.log(paymentResult);
 
-                // Check if paymentResult and paymentResult.response are defined
                 if (paymentResult && paymentResult.response) {
                     const paymentData = paymentResult.response;
 
-                    // Check if the required properties (amount, msisdn, mpesa_receipt) are defined
-                    if (paymentData && paymentData.amount && paymentData.msisdn && paymentData.mpesa_receipt) {
-                        // Save extracted data to Netlify Functions
-                        await fetch('/.netlify/functions/savePaymentResponse', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                amount: paymentData.amount,
-                                msisdn: paymentData.msisdn,
-                                mpesa_receipt: paymentData.mpesa_receipt,
-                            }),
-                        }).then(response => {
-                            if (response.ok) {
-                                alert("Payment successful!");
-                                setIsPaymentDone(true)
-                            }else {
-                                alert("Payment failed: " + response.status)
-                            }
-
-                        });
+                    if (paymentData.amount === startAmount) {
+                        alert("Payment successful!");
+                        setIsPaymentDone(true)
                     } else {
                         alert("Incomplete or missing payment data");
                         setIsPaymentDone(true)
