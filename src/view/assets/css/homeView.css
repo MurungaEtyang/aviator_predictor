@@ -2,12 +2,12 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgba(86, 175, 90, 0.29);
+    background-color: rgba(76, 96, 175, 0.62);
     overflow-x: hidden;
 }
 
 nav {
-    background-color: #333;
+    background: linear-gradient(to bottom, #87CEEB, #eee75c, #87CEEB, #77ee5c, #eee75c );
     color: #fff;
     padding: 10px;
     text-align: right;
@@ -45,8 +45,9 @@ nav {
     padding: 20px;
 }
 #about {
-    background-color: #f2f2f2;
+    background-color: rgba(76, 96, 175, 0.62);
     padding: 20px;
+    width: 100%;
 }
 #about .title {
     font-size: 24px;
@@ -57,7 +58,7 @@ nav {
 #about .paragraph {
     font-size: 16px;
     line-height: 1.5;
-    color: #555;
+    color: #000000;
     margin-bottom: 10px;
 }
 
@@ -86,11 +87,12 @@ nav {
 }
 
 .subscription {
-    width: 300px;
+    width: 500px;
     padding: 20px;
-    background-color: #f2f2f2;
+    background-color: rgba(76, 96, 175, 0.62);
     border-radius: 5px;
     text-align: center;
+    margin: 20px;
 }
 
 .subscription h2 {
@@ -119,7 +121,7 @@ nav {
 .subscription-payment {
     margin-top: 20px;
     padding: 20px;
-    background-color: #f2f2f2;
+    background-color: rgba(76, 96, 175, 0.62);
     border-radius: 5px;
 }
 
@@ -157,7 +159,7 @@ nav {
 #about-aviator {
      margin-top: 20px;
      padding: 20px;
-     background-color: #f2f2f2;
+     background-color: rgba(76, 96, 175, 0.62);
      border-radius: 5px;
  }
 
@@ -174,7 +176,7 @@ nav {
 #contact {
     margin-top: 20px;
     padding: 20px;
-    background-color: #f2f2f2;
+    background-color: rgba(76, 96, 175, 0.62);
     border-radius: 5px;
 }
 
@@ -198,7 +200,7 @@ nav {
 }
 
 footer {
-    background-color: rgb(12, 12, 12);
+    background-color: rgba(48, 48, 51, 0.62);
     padding: 20px;
     text-align: center;
     color: white;
