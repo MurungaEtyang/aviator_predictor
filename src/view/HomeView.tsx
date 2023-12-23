@@ -4,15 +4,19 @@ import { tinyApi } from "../handleApi/mpesa";
 import {ClipLoader} from "react-spinners";
 import ReactPlayer from "react-player"
 import AviatorPredictor from "./AviatorPredictor";
+import {Amount} from "./Amount";
 
 const HomeView = () => {
-    const startAmount = 1000;
+    // const data =
+
+    const data = sessionStorage.getItem('amount');
+    console.log(data);
+    const startAmount = 100;
     const goldAmount = 500;
     const premiumAmount = 1000;
     const [selectedTier, setSelectedTier] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [amount, setAmount] = useState('');
     const [loading, setLoading] = useState(false);
     const [isPaymentDone, setIsPaymentDone] = useState(false);
 
@@ -22,37 +26,51 @@ const HomeView = () => {
 
     const handleSelectTier = (tier: string, amount: string) => {
         setSelectedTier(tier);
-        setAmount(amount);
+
     };
 
     const handleSubscribe = async () => {
         try {
             setLoading(true);
             if (phoneNumber) {
-                const paymentResult = await tinyApi(phoneNumber, amount);
-                console.log(paymentResult);
+                const apiEndpoint = 'http://192.168.43.76:8000/api/stk-push';
 
-                if (paymentResult && paymentResult.response) {
-                    const paymentData = paymentResult.response;
+                const requestData = {
+                    phoneNumber: phoneNumber,
+                    amount: data,
+                };
 
-                    if (paymentData.amount === startAmount) {
-                        alert("Payment successful!");
-                        setIsPaymentDone(true)
+                const response = await fetch(apiEndpoint, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log(responseData.message);
+                    if (responseData.paid) {
+                        setIsPaymentDone(true);
+                        console.log('you will be redirected in the next 10 seconds');
                     } else {
-                        alert("Incomplete or missing payment data");
-                        setIsPaymentDone(true)
+                        console.log('you will be redirected to payment');
                     }
                 } else {
-                    alert("Invalid payment result or missing response");
-
+                    console.log('Error Status:', response.status);
                 }
             } else {
                 alert('Phone number is required');
             }
+        } catch (error) {
+            console.error('API Error:', error);
+            // Handle the error
         } finally {
             setLoading(false);
         }
     };
+
 
 
     return (
@@ -87,7 +105,7 @@ const HomeView = () => {
                     experience and performance in the popular "Aviator" game. This AI leverages state-of-the-art
                     machine learning and predictive modeling techniques to provide real-time assistance and guidance
                     to players, making the game more enjoyable and challenging. With AviatorBot AI, you can make a
-                    daily payment and start experiencing the winning streak. Your payment resets at midnight,
+                    daily payment and start experiencing the winning streak with only. Your payment resets at midnight,
                     giving you the opportunity to continuously improve your skills and achieve better results.
                     Join the AviatorBot AI community today and take your gaming experience to new heights!</p>
                 <div className="video">
@@ -99,53 +117,36 @@ const HomeView = () => {
             </div>
             {isPaymentDone ? (
                 <div>
-                    <h1>payment is successful</h1>
+                    <h1>GET ODDS</h1>
                     <AviatorPredictor />
                 </div>
             ): <div>
 
-                <h1>Subscription Plans</h1>
+                <h1>if You've already paid, click continue and enter your number to proceed.</h1>
                 <section className={`subscription-plans-section`}>
                     <div className={`subscription-plans`}>
                         <div className={`subscription`}>
-                            <h2>Starter</h2>
-                            <p>Basic features</p>
-                            <p>100% sure odds</p>
-                            <p>Daily payment</p>
-                            <p>Daily Updates</p>
+                            <h2>New to AviatorBot AI? </h2>
+                            <p>Make a daily payment of KES 100 and start
+                                experiencing the winning streak. Your Payment resets at midnight.</p>
+
                             <p>KSH {startAmount}</p>
-                            <button onClick={() => handleSelectTier('Starter', startAmount.toString())}>Select</button>
+                            <button onClick={() => handleSelectTier('Starter', startAmount.toString())}>Continue</button>
+
                         </div>
-                        {/*<div className={`subscription`}>*/}
-                        {/*    <h2>Diamond</h2>*/}
-                        {/*    <p>Advanced features</p>*/}
-                        {/*    <p>100% sure odds</p>*/}
-                        {/*    <p>Weekly payment</p>*/}
-                        {/*    <p>Daily Updates</p>*/}
-                        {/*    <p>KSH {goldAmount}</p>*/}
-                        {/*    <button onClick={() => handleSelectTier('Diamond', goldAmount.toString())}>Select</button>*/}
-                        {/*</div>*/}
-                        {/*<div className={`subscription`}>*/}
-                        {/*    <h2>Gold</h2>*/}
-                        {/*    <p>Premium features</p>*/}
-                        {/*    <p>100% sure odds</p>*/}
-                        {/*    <p>Monthly payment</p>*/}
-                        {/*    <p>Daily Updates</p>*/}
-                        {/*    <p>KSH {premiumAmount}</p>*/}
-                        {/*    <button onClick={() => handleSelectTier('Gold', premiumAmount.toString())}>Select</button>*/}
-                        {/*</div>*/}
+
                     </div>
                     {selectedTier && (
                         <div className={`subscription-payment`}>
-                            <h3>Selected Package: {selectedTier}</h3>
-                            <h4>Amount: {amount}</h4>
-                            <input type="text" placeholder="Enter phone number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                            <p><h2>NB: </h2>if You've already paid or unpaid, <h4>Amount: {startAmount}</h4> enter your number here to proceed.</p>
+                            {/*<h3>Selected Package: {selectedTier}</h3>*/}
+                            <input type="text" placeholder="Enter m-pesa number 0712345678" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                             <button type="submit" className="login-button" disabled={loading}
                                     onClick={handleSubscribe}>
                                 {loading ? (
-                                    <ClipLoader color="#ffffff" loading={loading} size={30}/>
+                                    <ClipLoader color="white" loading={loading} size={30}/>
                                 ) : (
-                                    'Pay Now'
+                                    'Proceed'
                                 )}
                             </button>
                         </div>

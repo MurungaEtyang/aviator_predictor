@@ -7,11 +7,13 @@ body {
 }
 
 nav {
-    background: linear-gradient(to bottom, #87CEEB, #eee75c, #87CEEB, #77ee5c, #eee75c );
-    color: #fff;
+    background: linear-gradient(to bottom, #87CEEB, #87CEEB, #eee75c);
+    color: #000000;
     padding: 10px;
-    text-align: right;
     width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .menu-icon {
@@ -21,18 +23,18 @@ nav {
 
 .menu-list {
     list-style-type: none;
-    padding: 0;
+    padding: 10px;
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .menu-list a {
     text-decoration: none;
-    color: #fff;
+    color: #000000;
     padding: 10px;
     display: block;
+    text-align: left;
 }
 
 .menu-list a:hover {
@@ -47,11 +49,12 @@ nav {
 #about {
     background-color: rgba(76, 96, 175, 0.62);
     padding: 20px;
-    width: 100%;
+    /*width: 100%;*/
+    /*max-width: 800px;*/
 }
 #about .title {
-    font-size: 24px;
-    color: #333;
+    font-size: 40px;
+    color: #000000;
     margin-bottom: 10px;
 }
 
@@ -136,11 +139,12 @@ nav {
 }
 
 .subscription-payment input[type="text"] {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+
 }
 
 .subscription-payment button {

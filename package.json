@@ -1,5 +1,6 @@
 {
   "name": "aviator",
+  "homepage": "https://kenflix.xyz/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

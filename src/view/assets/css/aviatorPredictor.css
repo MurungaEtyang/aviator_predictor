@@ -1,22 +1,67 @@
-.random-numbers{
-    height: 100%;
-    border-radius: 100%;
-    background-color: lightblue;
+
+.random-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
 }
 
-button{
-    height: 40px;
-    border: 1px solid;
-    border-bottom-color: #0056b3;
-    border-radius: 10px;
-    background-color: #0056b3;
+.circle-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
 }
-button:hover{
-    background-color: #61dafb;
+
+.circle {
+    width: 40px;
+    height: 40px;
+    background-color: #3498db;
+    border-radius: 50%;
+}
+
+.water {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(90deg, #3498db, #e74c3c, #f39c12, #2ecc71, #3498db);
+    border-radius: 50%;
+    animation: waterAnimation 2s linear infinite;
+}
+
+.number-display {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.random-numbers {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.generate-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.generate-button:hover {
+    background-color: #27ae60;
+}
+
+@keyframes waterAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
 }
